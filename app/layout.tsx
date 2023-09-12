@@ -1,4 +1,7 @@
 import './globals.css'
+import { ThemeProvider } from "./../components/providers/theme-provider"
+import { ClerkProvider } from '@clerk/nextjs'
+import { cn } from '@/lib/utils'
 // import type { Metadata } from 'next'
 
 
@@ -13,8 +16,20 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang='fa'>
-      <body>{children}</body>
-    </html>
+    <ClerkProvider>
+      <html lang='fa'>
+        <body className={cn(
+          "bg-white dark:bg-[#313338]"
+        )}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            storageKey='discord-theme'
+          >
+            {children}
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }
